@@ -1,4 +1,4 @@
-\documentclass[handout]{beamer}
+\documentclass[]{beamer}
 %
 % Choose how your presentation looks.
 %
@@ -127,15 +127,15 @@
 
 \end{frame}
 
-\begin{frame}\frametitle{Study data: Overview}
-	\begin{itemize}
-		\item Modeling local measures of drug distribution means that we take advantage of the longitudinal natures of the study data.
-		\item Today we will limit our analysis to the fasted state subjects.
-		\item Lots of missing data.
-		\item summarize number of observations in a variety of plots.
-	\end{itemize}
+% \begin{frame}\frametitle{Study data: Overview}
+% 	\begin{itemize}
+% 		\item Modeling local measures of drug distribution means that we take advantage of the longitudinal natures of the study data.
+% 		\item Today we will limit our analysis to the fasted state subjects.
+% 		\item Lots of missing data.
+% 		\item summarize number of observations in a variety of plots.
+% 	\end{itemize}
 
-\end{frame}
+% \end{frame}
 
 \begin{frame}{Discrete wavelet transform (DWT) based motility index}
 
@@ -259,7 +259,7 @@ The dashed \textcolor{red}{red} line represents the point-wise average log total
 \end{columns}
 \end{frame}
 
-\begin{frame}{Mechanism one: EDA}
+\begin{frame}{Emptying mechanism: EDA}
 \begin{columns}
 \begin{column}{.4\textwidth}
 \small
@@ -282,7 +282,14 @@ Analysis techniques will need to account for correlated nature of data.
 \end{frame}
 
 
-\begin{frame}{Emptying mechanism: results}
+\begin{frame}{Emptying mechanism: Results}
+
+\textcolor{blue}{Summary}: Increased gastric motility is associated with subsequent increases in total small intestine ibuprofen concentration.
+
+\pause
+
+\bigskip
+
 \small
 \textcolor{blue}{Model:} At time $t$ for subject $j$, $$[\text{log(SI conc.)}]_{t,j} \sim (\beta_1 + \beta_{1,j})[\text{log(time)}]_j + \beta_2[\text{Gastric Mot.}] + \epsilon_{j,t} + \alpha_j,$$
 
@@ -299,14 +306,14 @@ where $\alpha_j \sim N(\beta_0, \tau^2)$, $\beta_j \sim N(0, \sigma_1^2)$, and $
   \hline
 Intercept ($\beta_0$) & 9.99 & 0.36 & 27.90 & \multirow{3}{*}{1.54}& \multirow{3}{*}{.85}& \multirow{3}{*}{1.27}\\ 
   log(Time) ($\beta_1$) & 1.60 & 0.29 & 5.59 & & &\\ 
-  Gastric Motility ($\beta_2$) & 0.40 & 0.19 & 2.12 & & & \\ 
+  {\bf Gastric Motility} ($\beta_2$) & {\bf 0.40} & {\bf 0.19} & {\bf 2.12} & & & \\ 
    \hline
 \end{tabular}
 \end{table}
 
 \small
 \begin{itemize}
-	\item Residual ICC = 0.40
+	%\item Residual ICC = 0.40
 	\item Prediction accuracy to multiplicative factor $e^{1.54} = 4.7$.
 	\item On average a 1 standard deviation increase of the gastric motility index leads to a 50\% increase in small intestine ibuprofen concentration (SNR = 0.32).
 \end{itemize}
@@ -318,10 +325,12 @@ Intercept ($\beta_0$) & 9.99 & 0.36 & 27.90 & \multirow{3}{*}{1.54}& \multirow{3
 
 % \textcolor{blue}{Interpretations:}
 \begin{itemize}
-	\setlength\itemsep{1em}
-	% \item Given the tablet dosage form, we know that all ibuprofen observed in the small intestine was once in the stomach.
-	\item Our analysis shows that greater gastric activity is associated with greater total ibuprofen concentrations in the small intestine, controlling for subject-specific time trends.
-	\item GIS device should take into account variability in ibuprofen appearance. There are better modalities (e.g. SmartPill or MRI) for measuring gastric emptying.
+	\setlength\itemsep{1.25em}
+	\item Our analysis shows that greater gastric activity is associated with greater total ibuprofen concentrations in the small intestine and plasma absorption rates.
+
+	\item Variation in gastric emptying leads to variation in the availability of ibuprofen in the intestine, which causes variation in subsequent plasma concentrations.
+
+	\item In vitro GIS device should take into account variability in ibuprofen appearance. There are better modalities (e.g. SmartPill or MRI, HHSF223201310144C) for measuring gastric emptying.
 \end{itemize}
 
 
@@ -447,11 +456,21 @@ Response & Log(time) & Log(SI sol'n conc.) & Gastric Mot & $\hat{\sigma}$\\
 \end{table}
 \small
 
-Controlling for small intestine ibuprofen solution concentration, gastric motility is not significantly associated with ibuprofen absorption rates.
+\begin{itemize}
+	\item Controlling for small intestine ibuprofen solution concentration, gastric motility is not significantly associated with ibuprofen absorption rates.
+\end{itemize}
 
 \end{frame}
 
 \begin{frame}{Ibuprofen absorption: modeling results}
+
+\textcolor{blue}{Summary}: Intestinal solution ibuprofen concentration is the primary determinant of plasma absorption rates.
+
+
+\pause
+
+\bigskip
+
 \small
 \textcolor{blue}{Model:} At time $t$ for subject $j$, $$[\text{log(Abs. rate)}]_{t,j} \sim (\beta_1 + \beta_{1,j})[\text{log(time)}]_j + \beta_2[\text{log(SI sol'n conc.)}] + \epsilon_{j,t} + \alpha_j,$$
 
@@ -471,11 +490,9 @@ where $\alpha_j \sim N(0, \tau^2)$, $\beta_j \sim N(0, \sigma_1^2)$, and $\epsil
 
 \small
 \begin{itemize}
-	\item Residual ICC = 0.49
+	% \item Residual ICC = 0.49
 	\item Prediction accuracy to multiplicative factor $e^{1.01} = 2.75$.
-	%\item On average, doubling small intestine ibuprofen solution concentration is associated with a 31\% increase in ibuprofen absorption rate.
 	\item Increasing the log(SI solution concentration) by one standard error (3.8 log(ng/ml)) is associated with a 440\% increase in ibuprofen absorption rate (SNR = 1.60).
-	\item Bart recommends a summary sentence
 \end{itemize}
 
 \end{frame}
@@ -486,7 +503,7 @@ where $\alpha_j \sim N(0, \tau^2)$, $\beta_j \sim N(0, \sigma_1^2)$, and $\epsil
 
 	\begin{itemize}
 	\setlength\itemsep{1em}
-		\item After controlling for contemporaneous small intestine ibuprofen solution concentration, other GI variables are not significantly associated with plasma absorption rates.
+		\item After controlling for contemporaneous small intestine ibuprofen solution concentration, other GI variables are not significantly associated with plasma absorption rates (e.g. gastric motility).
 
 		\item This suggests that other variables influence plasma concentration levels through their associations with solution concentrations.
 
@@ -496,9 +513,27 @@ where $\alpha_j \sim N(0, \tau^2)$, $\beta_j \sim N(0, \sigma_1^2)$, and $\epsil
 
 \begin{frame}{Summary}
 
+\begin{itemize}
+	\setlength\itemsep{1.25em}
+
+	\item We identified two factors, gastric motility and small intestine ibuprofen solution concentration, associated with variation in ibuprofen plasma concentrations.
+
+	\item Gastric motility is associated with the total concentration of ibuprofen in the small intestine.
+
+	\item Small intestine solution concentrations are the primary determinant of plasma absorption rates.
+
+	\item Other GI factors (pH and motility) may induce variation in absorption rates through their associations with ibuprofen solution concentrations.
+
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}{Future work}
+
+\begin{itemize}
+	\setlength\itemsep{1.25em}
+	\item 
+\end{itemize}
 
 \end{frame}
 
